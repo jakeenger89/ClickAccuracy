@@ -1,0 +1,38 @@
+.game-container {
+    position: relative;
+    top: 70px; /* Adjust this value to move the game area further down */
+    width: 25%;
+    height: 400px; /* Adjust the height as needed */
+    border: 1px solid black;
+    overflow: hidden;
+    background-color: lightgray;
+    margin: 0 auto;
+}
+
+.dot {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    border-radius: 50%;
+    position: absolute;
+}
+
+/* Center the accuracy and timer elements */
+#accuracy,
+#timer {
+    position: absolute;
+    top: 20px; /* Adjust the top margin as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 18px;
+}
+
+#accuracy {
+    color: green; /* Example color for accuracy */
+}
+
+#timer {
+    color: blue; /* Example color for timer */
+    top: 50px; /* Adjust the top margin to space out from accuracy */
+}
