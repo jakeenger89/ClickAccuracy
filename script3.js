@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const gameContainer = document.getElementById("gameContainer");
-    const dots = [];
+    let dot; // Variable to hold the single dot
     const spawnAreaWidth = 200; // Width of the spawn area
     const spawnAreaHeight = 200; // Height of the spawn area
-    const spawnInterval = 500; // Interval for spawning dots in milliseconds for level 2
     let totalClicks = 0;
     let hits = 0;
     let endTime = 0; // Will be set when the game starts
@@ -23,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
             // Initialize accuracy display
             updateAccuracy();
 
-            // Spawn dots at regular intervals
-            const dotInterval = setInterval(spawnDot, spawnInterval);
+            // Spawn a dot
+            spawnDot();
 
             // Update timer every second
             timerInterval = setInterval(updateTimer, 1000); // Assign to timerInterval
@@ -33,14 +32,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to spawn a dot within the spawn area
     function spawnDot() {
-        if (gameRunning) {
-            const dot = document.createElement("div");
+        if (!dot && gameRunning) { // Only spawn if no dot exists and game is running
+            dot = document.createElement("div");
             dot.classList.add("dot");
 
-            // Randomize dot size between 10 and 20
-            const dotSize = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
-            dot.style.width = dotSize + "px";
-            dot.style.height = dotSize + "px";
+            // Set dot size to 30px
+            dot.style.width = "30px";
+            dot.style.height = "30px";
 
             dot.style.left = Math.random() * spawnAreaWidth + (gameContainer.clientWidth - spawnAreaWidth) / 2 + "px";
             dot.style.top = Math.random() * spawnAreaHeight + (gameContainer.clientHeight - spawnAreaHeight) / 2 + "px";
@@ -48,28 +46,25 @@ document.addEventListener("DOMContentLoaded", function() {
             // Add event listener to shoot the dot
             dot.addEventListener("click", function() {
                 gameContainer.removeChild(dot);
-                const index = dots.indexOf(dot);
-                if (index > -1) {
-                    dots.splice(index, 1);
-                    hits++;
-                }
+                dot = null; // Reset dot variable
+                hits++;
                 totalClicks++;
                 updateAccuracy();
+                setTimeout(spawnDot, 800); // Delay spawning next dot by 800 milliseconds
             });
 
             // Remove dot after a certain time if not clicked
             setTimeout(() => {
-                gameContainer.removeChild(dot);
-                const index = dots.indexOf(dot);
-                if (index > -1) {
-                    dots.splice(index, 1);
+                if (dot) {
+                    gameContainer.removeChild(dot);
+                    dot = null; // Reset dot variable
                     totalClicks++;
                     updateAccuracy();
+                    setTimeout(spawnDot, 800); // Delay spawning next dot by 800 milliseconds
                 }
             }, 2000); // Adjust this value to change the time dots stay visible
 
             gameContainer.appendChild(dot);
-            dots.push(dot);
         }
     }
 
