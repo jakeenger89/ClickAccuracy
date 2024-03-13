@@ -19,6 +19,7 @@
 
 /* Center the accuracy and timer elements */
 #accuracy,
+#startButton,
 #timer {
     position: absolute;
     top: 20px; /* Adjust the top margin as needed */
@@ -35,4 +36,16 @@
 #timer {
     color: blue; /* Example color for timer */
     top: 50px; /* Adjust the top margin to space out from accuracy */
+}
+
+#startButton {
+    top: 80px; /* Adjust the top margin to space out from timer */
+}
+
+#nextLevelButton {
+    position: absolute;
+    bottom: 100px; /* Adjust the bottom margin as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    display: none; /* Initially hide the button */
 }

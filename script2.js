@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const dots = [];
     const spawnAreaWidth = 200; // Width of the spawn area
     const spawnAreaHeight = 200; // Height of the spawn area
-    const spawnInterval = 500; // Interval for spawning dots in milliseconds
+    const spawnInterval = 500; // Interval for spawning dots in milliseconds for level 2
     let totalClicks = 0;
     let hits = 0;
     let endTime = 0; // Will be set when the game starts
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!gameRunning && !gameOver) {
             totalClicks = 0;
             hits = 0;
-            endTime = Date.now() + 30000; // set to 3000 for testing purpose otherwise 30000
+            endTime = Date.now() + 30000; // set to 30000 for 30 seconds
             gameRunning = true;
             gameOver = false;
 
@@ -36,6 +36,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (gameRunning) {
             const dot = document.createElement("div");
             dot.classList.add("dot");
+
+            // Randomize dot size between 10 and 20
+            const dotSize = Math.floor(Math.random() * (20 - 10 + 1)) + 10;
+            dot.style.width = dotSize + "px";
+            dot.style.height = dotSize + "px";
+
             dot.style.left = Math.random() * spawnAreaWidth + (gameContainer.clientWidth - spawnAreaWidth) / 2 + "px";
             dot.style.top = Math.random() * spawnAreaHeight + (gameContainer.clientHeight - spawnAreaHeight) / 2 + "px";
 
@@ -112,8 +118,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to progress to the next level
     function nextLevel() {
-        // Redirect to script2.js (next level)
-        window.location.href = "index2.html";
+        // Redirect to level3.html (next level)
+        window.location.href = "level3.html";
     }
 
     // Function to reset the game
